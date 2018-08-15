@@ -1,0 +1,100 @@
+<!doctype html>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>impress.js | presentation tool based on the power of CSS3 transforms and transitions in modern browsers | by Bartek Szopka @bartaz</title>
+    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Bartek Szopka" />
+
+   
+
+  
+    <link href="styles/css/demo.css" rel="stylesheet" />
+    <link href="styles/css/animate.min.css" rel="stylesheet" />
+    
+  
+ 
+</head>
+
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+
+<div id="impress">
+<div id="one" class="step " >
+    <div>中秋节快乐，大吉大利~</div>
+      
+      <img src="styles/images/4.jpg" class="animated slideInUp">
+ 
+</div>
+<div id="two" class="step" data-x="1000">
+    <h1 style="font-size:88px" class="zq">中秋？</h1>
+    <h1 class="t bounce">你对中秋知多少…</h1>
+</div>
+<div id="three" class="step" data-x="900" data-y="1000">
+<div style="text-align:center">别急，有问题找360…</div>
+    <img src="styles/images/5.png">
+</div>
+<div class="step " data-x="-1000" data-y="1000" data-scale="3" data-z="200" >
+    <h1 class="c" style="font-size:100px;">中秋原来还有这么多名字</h1>
+
+</div>
+<div id="four" class="step" data-x="-1000" data-y="-500" data-scale="2" data-rotate="90">
+    <b class="t bu animated">月夕</b>
+     <b class="t bu animated">秋节</b> 
+     <b class="t bu animated">仲秋节</b> 
+     <b class="t bu animated">八月节</b>
+      <b class="t bu animated">八月会</b> 
+    <b class="t bu animated">追月节</b>
+    <b class="t bu animated">玩月节</b>
+    <b class="t bu animated">拜月节</b>
+    <b class="t bu animated">女儿节</b>
+    <b class="t bu animated">团圆节</b>
+
+</div>
+<div id="five" class="step " data-z="700" data-y="1000">
+    中秋当然得吃月饼了
+</div>
+<div id="six" class="step " data-z="700" data-y="1000" data-rotate="-90">
+    不过就能过个眼福。
+</div>
+<div  class="step" data-z="-1000" data-y="-1000" data-x="1000" data-rotate-x="90">
+    <img src="styles/images/6.jpg" style="margin:0 auto;display:block">
+</div>
+<div  class="step" data-z="1000" data-y="-1000" data-x="1000" data-rotate-x="0">
+    <img src="styles/images/7.jpg" style="margin:0 auto;display:block">
+</div>
+<div  class="step" data-z="-900" data-y="-450" data-x="400" data-rotate-x="80">
+    <img src="styles/images/8.jpg" style="margin:0 auto;display:block">
+</div>
+<div  class="step" data-z="-300" data-y="-1000" data-x="700" data-rotate-y="30">
+    <img src="styles/images/9.jpg" style="margin:0 auto;display:block">
+</div>
+<div  class="step" data-z="800" data-y="-1000" data-x="150" data-rotate-x="-30">
+    <img src="styles/images/10.jpg" style="margin:0 auto;display:block">
+</div>
+<div  class="step" data-z="-600" data-y="-1000" data-x="-300" data-rotate-x="30">
+    <img src="styles/images/11.jpg" style="margin:0 auto;display:block">
+</div>
+
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<script src="styles/js/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
