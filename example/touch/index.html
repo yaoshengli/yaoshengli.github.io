@@ -54,7 +54,7 @@
     }
     function loadDownMore() {
         alloyTouch.canDownLoad = false
-
+        alloyTouch.lockDownLoad = true
         var t = setInterval(function() {
             refresh.rotateZ += 5
         }, 20)
@@ -67,6 +67,7 @@
             clearTimeout(t)
             console.log('loading')
             alloyTouch.canDownLoad = true
+            alloyTouch.lockDownLoad = false
 
         }, 3000)
     }
@@ -114,10 +115,10 @@
 
             if (this.refresh) {
 
-                if (pv > this.max) {
+                if (pv > this.max&&pv<110) {
 
                     refresh.translateY = pv
-                    refresh.rotateZ = (pv / 45) * 160
+                    refresh.rotateZ = (pv / 110) * 110
                     if(refresh.translateY>10)
                         refresh.style.display='block'
                     else
@@ -138,16 +139,20 @@
 
         },
         touchStart: function(evt, value, pv) {
-
+            console.log(this.lockDownLoad)
+            if(this.lockDownLoad){
+                this.refresh=false
+            }
 
 
         },
         touchMove: function(evt, value, d, pv) {
-
+            if(!this.lockDownLoad){
             if (pv > this.max) {
                 this.refresh = true
             } else {
                 this.refresh = false
+            }
             }
 
 
