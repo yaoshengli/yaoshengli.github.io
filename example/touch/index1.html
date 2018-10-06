@@ -114,14 +114,14 @@
         maxSpeed: 2, //不必需，触摸反馈的最大速度限制 
         initialValue: 0,
         change: function(value, pv) {
-            if ((!this.touching)) {
+           // if ((!this.touching)) {
                 if (pv > this.max) {
-                    if (!this.canDownLoad) {
+                    //if (!this.canDownLoad) {
                         //  target.translateY=30
-                    } else
+                   // } else
                         target.translateY = this.max
                 }
-            }
+            //}
 
 
             if (pv < this.min) {

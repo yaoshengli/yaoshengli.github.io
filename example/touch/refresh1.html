@@ -16,7 +16,9 @@
 </head>
 
 <body>
-    <section id="wrapper">
+    <div id='topd' style='background:pink;height:150px;position:relative;z-index:1'></div>
+    <div id='nav' style='background:red;height:50px;position:relative;z-index:1'>nav</div>
+    <section id="wrapper" style="position:relative">
         <div id="refresh" style='position:absolute;left:50%;top:0;z-index:3;transform:translateX(-50%);width:20px;height:20px;margin:0 auto;background:green;'></div>
         <div id='target' style="width:100%;min-height:1000px;background:red">
             <div style="height:40px;background:blue"></div>
@@ -51,7 +53,7 @@
 <script src="transform.js"></script>
 <script src="touch.js?id=1"></script>
 <script>
-    $('#wrapper').height($(window).height())
+    $('#wrapper').height($(window).height()-50).css('overflow',"hidden")
     function restMin() {
        var min = $('#wrapper').height() - $("#target").height()
        if(min>0)
@@ -114,22 +116,22 @@
         maxSpeed: 2, //不必需，触摸反馈的最大速度限制 
         initialValue: 0,
         change: function(value, pv) {
-            if ((!this.touching)) {
-                if (pv > this.max) {
-                    if (!this.canDownLoad) {
+           // if ((!this.touching)) {
+                if (value > this.max) {
+                 //   if (!this.canDownLoad) {
                         //  target.translateY=30
-                    } else
+                 //   } else
                         target.translateY = this.max
                 }
-            }
+           // }
 
 
-            if (pv < this.min) {
+            if (value < this.min) {
 
                 target.translateY = this.min
             }
 
-            if (this.refresh) {
+            if (this.refresh&&!this.fixed) {
 
                 if (pv > this.max && pv < 110) {
 
@@ -144,6 +146,31 @@
 
 
             }
+             if(this.up>0){
+              
+                if($(window).scrollTop()==0){
+                
+                         this.fixed=false;
+                    this.preventDefault=true
+                    
+                   
+                }else{
+                   // this.fixed=true;
+                    alloyTouch.stop()
+                    this.preventDefault=false
+                }
+            }
+            if(this.up<0){
+                 if($(window).scrollTop()>=149){
+                   this.fixed=false;
+                    
+                    this.preventDefault=true
+                }else{
+                    //this.fixed=true;
+                     alloyTouch.stop()
+                    this.preventDefault=false
+                }
+            }
             if (pv <= this.min) {
 
                 if (this.canUpLoad) {
@@ -156,11 +183,14 @@
         },
         touchStart: function(evt, value, pv) {
             this.touching = true
-            console.log(this.lockDownLoad)
+            
             if (this.lockDownLoad) {
                 this.refresh = false
             }
-
+           this.fixed=true;
+            
+            this.preventDefault=false
+            console.log(this.fixed)
 
         },
         touchMove: function(evt, value, d, pv) {
@@ -172,13 +202,20 @@
                     this.refresh = false
                 }
             }
-
+            if(d>0){
+              
+             this.up=1
+            }
+            if(d<0){
+              this.up=-1
+            }
+            console.log(this.fixed)
 
 
         },
         touchEnd: function(evt, value, pv) {
             this.touching = false
-            if (pv > 70) {
+            if (pv > 70&&!this.fixed) {
 
                 alloyTouch.to(30)
 

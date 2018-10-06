@@ -167,6 +167,17 @@
                     this.preX = currentX;
                     this.preY = currentY;
                     if (!this.fixed) {
+           /*               if (this.target[this.property] + d > this.max) {
+
+                this.target[this.property] = this.max
+            }
+
+
+
+            if (this.target[this.property] + d < this.min) {
+
+                this.target[this.property] = this.min
+            }*/
                         this.target[this.property] += d;
                     }
                    
@@ -255,6 +266,7 @@
 
                         var tRatio = 1;
                         if (destination < this.min ) {
+                            
                             if (destination < this.min - this.maxRegion) {
                                 tRatio = reverseEase((current - this.min + this.springMaxRegion) / (current - destination));
                                 destination = this.min - this.springMaxRegion;
@@ -263,6 +275,7 @@
                                 destination = this.min - this.springMaxRegion * (this.min - destination) / this.maxRegion;
                             }
                         } else if (destination > this.max) {
+                            
                             if (destination > this.max + this.maxRegion) {
                                 tRatio = reverseEase((this.max + this.springMaxRegion - current) / (destination - current));
                                 destination = this.max + this.springMaxRegion;

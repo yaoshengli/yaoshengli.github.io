@@ -11,13 +11,12 @@
             margin: 0;
             padding: 0
         }
-
     </style>
 </head>
 
 <body>
     <section id="wrapper">
-        <div id="refresh" style='position:absolute;left:50%;top:0;z-index:3;transform:translateX(-50%);width:20px;height:20px;margin:0 auto;background:green;'></div>
+
         <div id='target' style="width:100%;min-height:1000px;background:red">
             <div style="height:40px;background:blue"></div>
             <div style="height:40px;background:yellow"></div>
@@ -52,50 +51,13 @@
 <script src="touch.js?id=1"></script>
 <script>
     $('#wrapper').height($(window).height())
-    function restMin() {
-       var min = $('#wrapper').height() - $("#target").height()
-       if(min>0)
-           min=0
-        alloyTouch.min=min
-    }
 
-    function loadDownMore() {
-        alloyTouch.canDownLoad = false
-        alloyTouch.lockDownLoad = true
-        var t = setInterval(function() {
-            refresh.rotateZ += 5
-        }, 20)
-        setTimeout(function() {
-            $("<div>").css("height", "40px").css("background", "black").prependTo($("#target"))
-            restMin()
-            alloyTouch.to(0)
-            refresh.translateY = 0
-            refresh.rotateZ = 0
-            clearTimeout(t)
-            console.log('loading')
-            alloyTouch.canDownLoad = true
-            alloyTouch.lockDownLoad = false
-
-        }, 3000)
-    }
-
-    function loadUpMore() {
-        alloyTouch.canUpLoad = false
-        setTimeout(function() {
-            $("<div>").css("height", "40px").css("background", "black").insertBefore($("#target div:last"))
-            restMin()
-
-            alloyTouch.canUpLoad = true
-
-        }, 3000)
-    }
     var alloyTouch;
     var min = $('#wrapper').height() - $("#target").height()
-    if(min>0)
-        min=0
+    if (min > 0)
+        min = 0
     var target = $("#target")[0]
-    var refresh = $("#refresh")[0]
-    Transform(refresh)
+
     Transform(target)
 
 
@@ -114,14 +76,12 @@
         maxSpeed: 2, //不必需，触摸反馈的最大速度限制 
         initialValue: 0,
         change: function(value, pv) {
-            if ((!this.touching)) {
-                if (pv > this.max) {
-                    if (!this.canDownLoad) {
-                        //  target.translateY=30
-                    } else
-                        target.translateY = this.max
-                }
+
+            if (pv > this.max) {
+
+                target.translateY = this.max
             }
+
 
 
             if (pv < this.min) {
@@ -129,28 +89,6 @@
                 target.translateY = this.min
             }
 
-            if (this.refresh) {
-
-                if (pv > this.max && pv < 110) {
-
-                    refresh.translateY = pv
-                    refresh.rotateZ = (pv / 110) * 110
-                    if (refresh.translateY > 10)
-                        refresh.style.display = 'block'
-                    else
-                        refresh.style.display = 'none'
-
-                }
-
-
-            }
-            if (pv <= this.min) {
-
-                if (this.canUpLoad) {
-
-                    loadUpMore()
-                }
-            }
 
 
         },
@@ -165,32 +103,12 @@
         },
         touchMove: function(evt, value, d, pv) {
 
-            if (!this.lockDownLoad) {
-                if (pv > this.max) {
-                    this.refresh = true
-                } else {
-                    this.refresh = false
-                }
-            }
 
 
 
         },
         touchEnd: function(evt, value, pv) {
-            this.touching = false
-            if (pv > 70) {
 
-                alloyTouch.to(30)
-
-                //  
-
-                if (this.canDownLoad)
-                    loadDownMore()
-                return false
-            }
-
-            // console.log("end "+value)
-            //console.log("end "+pv)
         },
         tap: function(evt, value) {},
         pressMove: function(evt, value) {},
@@ -199,7 +117,6 @@
             console.log(value)
         } //运动结束
     })
-
 </script>
 
 </html>
