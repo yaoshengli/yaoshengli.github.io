@@ -26,6 +26,33 @@ tags:
 
 ***
 
+### 待完善
 
 
-[按12 mobile下查看例子哦](/example/touch/index.html)
+[按12 mobile下查看例子哦 base](/example/touch/base.html)
+
+***
+
+[按12 mobile下查看例子哦 base1](/example/touch/base1.html)
+
+***
+
+[按12 mobile下查看例子哦 index](/example/touch/index.html)
+
+***
+
+[按12 mobile下查看例子哦 index1](/example/touch/index1.html)
+
+***
+
+[按12 mobile下查看例子哦 refresh](/example/touch/refresh.html)
+
+***
+
+[按12 mobile下查看例子哦 refresh1](/example/touch/refresh1.html)
+
+***
+
+[按12 mobile下查看例子哦 refresh2](/example/touch/refresh2.html)
+
+***
