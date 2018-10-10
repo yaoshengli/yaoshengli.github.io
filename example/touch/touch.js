@@ -151,6 +151,53 @@
                     } else if (dDis < 0 && !this.vertical) {
                         this._preventMove = true;
                     }
+                    //add s
+                    if(this.refresh1){
+                        var d = (this.vertical ? currentY - this.preY : currentX - this.preX) * this.sensitivity;
+                        var f = this.moveFactor;
+                        if ((this.hasMax && this.target[this.property] > this.max && d > 0)||(this.hasMax && this.custom_pv > this.max && d > 0)) {
+                            f = this.outFactor;
+                        } else if ((this.hasMin && this.target[this.property] < this.min && d < 0)||(this.hasMin && this.custom_pv < this.min && d < 0)) {
+                            f = this.outFactor;
+                        }
+                        
+                        d *= f;
+                        if(d<0){
+                                 if($(window).scrollTop()>=149){
+                                   this.fixed=false;
+                                    
+                                    this.preventDefault=true
+                                }else{
+                                    //this.fixed=true;
+                                     alloyTouch.stop()
+                                    this.preventDefault=false
+                                }
+                            }
+
+                            if(d>0){
+              
+                                  //  if($(window).scrollTop()==0){
+                                    
+                                             this.fixed=false;
+                                        this.preventDefault=true
+                                        
+                                       
+                                    /*}else{
+                                       // this.fixed=true;
+                                      
+                                       if(value<0){
+                                        this.fixed=false;
+                                        this.preventDefault=true
+                                    }else{
+                                       
+                                        alloyTouch.stop()
+                                        this.preventDefault=false
+                                    }
+                                        
+                                    }*/
+                                }
+                    }
+                    //add e
                     this._firstTouchMove = false;
                 }
                 if(!this._preventMove) {
