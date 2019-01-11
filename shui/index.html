@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--[if lt IE 8]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js"><!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Particulate Medusae</title>
+
+    <meta name="description" content="Soft body jellyfish simulation. Built with Particulate.js and Three.js">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="./build/static/img/favicon.ico">
+    <link rel="stylesheet" href="./build/static/css/style.css">
+
+  </head>
+  <body>
+    <article id="info" class="modal info-modal">
+      <h1>Medusae</h1>
+      <div class="info-section">
+        <dl>
+          <dt>Concept, Design & Code</dt>
+          <dd><a>Jay Weeks</a></dd>
+        </dl>
+        <dl>
+          <dt>Audio Design</dt>
+          <dd><a>JP Arsenault</a></dd>
+        </dl>
+      </div>
+      <div class="info-section">
+        <dl>
+          <dt>Physics</dt>
+          <dd><a>Particulate</a></dd>
+        </dl>
+        <dl>
+          <dt>Graphics</dt>
+          <dd><a>Three</a></dd>
+        </dl>
+      </div>
+      <div class="info-section">
+        <dl>
+          <dt>Source</dt>
+          <dd><a>Github</a></dd>
+        </dl>
+        <dl>
+          <dt>Process</dt>
+          <dd><a>Flickr</a></dd>
+        </dl>
+      </div>
+    </article>
+    <div id="cover-info" class="modal-cover"></div>
+
+    <div id="container-controls" style='right:200px;left:unset;bottom:100px'>
+      <div id="toggle-info" class="controls-button" style='opacity:0'>
+        <div class="label">About</div>
+      </div>
+      <div id="toggle-dots" class="controls-button" style='opacity:0'>
+        <div class="label">Particles</div>
+      </div>
+      <div id="menu-colors" class="controls-menu"></div>
+      <div id="toggle-colors" class="controls-button" style='opacity:0'>
+        <div class="label">Colors</div>
+      </div>
+      <div id="toggle-audio" class="controls-button" style='opacity:0'>
+        <div class="label">Audio</div>
+      </div>
+      <div id="toggle-postfx" class="controls-button" style='opacity:0'>
+        <div class="label">Post FX</div>
+      </div>
+      <div id="toggle-sim" class="controls-button" style='opacity:0'>
+        <div class="label">Run Sim</div>
+      </div>
+    </div>
+
+    <div id="container-stats" class="stats-panel">
+      <div id="container-graphs"></div>
+      <dl>
+        <dt>Particles</dt>
+        <dd id="particle-count"></dd>
+      </dl>
+      <dl>
+        <dt>Constraints</dt>
+        <dd id="constraint-count"></dd>
+      </dl>
+      <dl>
+        <dt>Forces</dt>
+        <dd id="force-count"></dd>
+      </dl>
+    </div>
+
+    <div id="container"></div>
+
+    <script>window.arr=[];window.curColor=[]</script>
+    <script src='https://unpkg.com/popmotion/dist/popmotion.global.min.js'></script>
+      <script src="./build/static/js/three.min.js"></script>
+      <script src="./build/static/js/app.min.js"></script>
+
+    <script >
+      App.STATIC_URL = "./build/static/";
+      //this.color.setStyle(b)
+      console.log(arr)
+    console.log(curColor)
+    function bg2(){
+             return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+         }
+         function bg3(){
+           function rr(){
+             var a=Math.floor(Math.random()*(10-7+1)+7)
+             if(a==10){
+              return 1
+             }else{
+              return parseFloat('0.'+a)
+             }
+           }
+             var r=Math.floor(Math.random()*256);
+             var g=Math.floor(Math.random()*256);
+             var b=Math.floor(Math.random()*256);
+            
+             var c=rr()
+             return "rgb("+r+','+g+','+b+','+c+")";//所有方法的拼接都可以用ES6新特性`其他字符串{$变量名}`替换
+         }
+        function updateColor(){
+          var a=[];
+          for(var i=0;i<9;i++){
+            a.push( bg3())
+          }
+          return a
+        }
+    
+    var _window$popmotion = window.popmotion,easing = _window$popmotion.easing,tween = _window$popmotion.tween,styler = _window$popmotion.styler;
+
+setTimeout(function(){
+  //window.lastColor=['#fff','#fff','#000000','#000000','#000000','#000000','#fff','#fff','#fff']
+  window.lastColor=updateColor()
+function ska(){
+  
+  tween({
+  from: window.curColor,
+  to: window.lastColor,
+  duration: 5000,
+
+  
+  // elapsed: 500,
+  // loop: 5,
+  // yoyo: 5
+}).start({update:function(v){
+ arr.forEach(function(item,i){
+   console.log(v)
+   item.color.setStyle(v[i])
+ })
+},
+complete:function(){
+  window.curColor=window.lastColor
+  //window.lastColor=['#000','#000','#000000','#000000','#000000','#000000','#000','#000','#000']
+  window.lastColor=updateColor()
+  ska()
+}});
+}
+ska()
+//   tween({
+//   from: window.curColor,
+//   to: window.lastColor,
+//   duration: 5000,
+
+  
+//   // elapsed: 500,
+//   // loop: 5,
+//   // yoyo: 5
+// }).start({update:function(v){
+//  arr.forEach(function(item,i){
+//    console.log(item)
+//    item.color.setStyle(v[i])
+//  })
+// },
+// complete:function(){
+//   alert(1)
+// }});
+ },0)
+
+
+    </script>
+  </body>
+</html>
