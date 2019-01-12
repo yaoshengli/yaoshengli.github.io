@@ -15,7 +15,13 @@
     <script type="text/javascript" src="https://unpkg.com/iview@1.0.1/dist/iview.min.js"></script>
     <link rel="shortcut icon" href="./build/static/img/favicon.ico">
     <link rel="stylesheet" href="./build/static/css/style.css">
-
+    <style>
+      @media screen and (max-width:750px){
+        .music{
+          display:none !important
+        }
+      }
+    </style>
   </head>
   <body>
     <section id='app' style='position:fixed;left:20px;top:20px;width:200px;height:400px;z-index:99' v-show='show'>
@@ -26,7 +32,7 @@
         <div>蓝</div>
         <Slider :value="value3" :max='255' @on-Change='change2' range>蓝</Slider>
         <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>颜色调整rgb</i-button>
-        <section style='position:fixed;right:20px;top:20px;width:330px;height:450px;z-index:99'>
+        <section class='music' style='position:fixed;right:20px;top:20px;width:330px;height:450px;z-index:99'>
             <iframe id='form' frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="{{value4}}"></iframe>
             <i-input :value.sync="value4" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入网易云歌单外链接..."></i-input>
             <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>水母可缩放旋转，按空格暂停</i-button>
