@@ -26,11 +26,11 @@
   <body>
     <section id='app' style='position:fixed;left:20px;top:20px;width:200px;height:400px;z-index:99' v-show='show'>
       <div>红</div>
-        <Slider :value="value1" :max='255'  @on-Change='change' range>红</Slider>
+        <Slider :value="value1" :max='255'  @on-Change='change' range></Slider>
         <div>绿</div>
-        <Slider :value="value2" :max='255'  @on-Change='change1' range>绿</Slider>
+        <Slider :value="value2" :max='255'  @on-Change='change1' range></Slider>
         <div>蓝</div>
-        <Slider :value="value3" :max='255' @on-Change='change2' range>蓝</Slider>
+        <Slider :value="value3" :max='255' @on-Change='change2' range></Slider>
         <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>颜色调整rgb</i-button>
         <section class='music' style='position:fixed;right:20px;top:20px;width:330px;height:450px;z-index:99'>
             <iframe id='form' frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="{{value4}}"></iframe>
