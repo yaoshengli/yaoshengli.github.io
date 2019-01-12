@@ -10,12 +10,33 @@
 
     <meta name="description" content="Soft body jellyfish simulation. Built with Particulate.js and Three.js">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/iview/dist/styles/iview.css">
+    <script type="text/javascript" src="https://v1.vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/iview@1.0.1/dist/iview.min.js"></script>
     <link rel="shortcut icon" href="./build/static/img/favicon.ico">
     <link rel="stylesheet" href="./build/static/css/style.css">
 
   </head>
   <body>
+    <section id='app' style='position:fixed;left:20px;top:20px;width:200px;height:400px;z-index:99' v-show='show'>
+      <div>红</div>
+        <Slider :value="value1" :max='255'  @on-Change='change' range>红</Slider>
+        <div>绿</div>
+        <Slider :value="value2" :max='255'  @on-Change='change1' range>绿</Slider>
+        <div>蓝</div>
+        <Slider :value="value3" :max='255' @on-Change='change2' range>蓝</Slider>
+        <section style='position:fixed;right:20px;top:20px;width:330px;height:450px;z-index:99'>
+            <iframe id='form' frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="{{value4}}"></iframe>
+            <i-input :value.sync="value4" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入网易云歌单外链接..."></i-input>
+            <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>水母可缩放旋转，按空格暂停</i-button>
+            <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>先调整水母到喜欢的位置</i-button>
+            <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>替换网易云歌单外链接:只复制src的值</i-button>
+            <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>双击隐藏颜色配置和歌单</i-button>
+            
+            <i-button @click='tihuan' type="primary" style='margin:0 auto;display:block;margin-top:10px'>pc端浏览</i-button>
+        </section>
+    </section>
+    
     <article id="info" class="modal info-modal">
       <h1>Medusae</h1>
       <div class="info-section">
@@ -99,10 +120,48 @@
     <script >
       App.STATIC_URL = "./build/static/";
       //this.color.setStyle(b)
-      console.log(arr)
-    console.log(curColor)
+      var red=[0,255],green=[0,255],blue=[0,255]
+      window.vue=new Vue({
+        el: '#app',
+        data: {
+            show: true,
+            value1: [0, 255],
+            value2: [0, 255],
+            value3: [0, 255],
+            value4:'http://music.163.com/outchain/player?type=0&id=2585806368&auto=1&height=430'
+        },
+        methods: {
+            show: function () {
+                this.visible = true;
+            },
+            change:function(v){
+              red[0]=v[0]
+              red[1]=v[1]
+            },
+            change1:function(v){
+              green[0]=v[0]
+              green[1]=v[1]
+            },
+            change2:function(v){
+              blue[0]=v[0]
+              blue[1]=v[1]
+            },
+            tihuan:function(){
+              
+            }
+        }
+    })
+
+
+
     function bg2(){
              return '#'+Math.floor(Math.random()*0xffffff).toString(16);
+         }
+         function bg4(){
+          var h=Math.floor(Math.random()*361);
+             var s=Math.floor(Math.random()*(100-0+1)+0);
+             var l=Math.floor(Math.random()*(100-0+1)+0);
+           return [h,s,l,1]
          }
          function bg3(){
            function rr(){
@@ -110,28 +169,35 @@
              if(a==10){
               return 1
              }else{
-              return parseFloat('0.'+a)
+              return 1
              }
            }
-             var r=Math.floor(Math.random()*256);
-             var g=Math.floor(Math.random()*256);
-             var b=Math.floor(Math.random()*256);
+             var r=Math.floor(Math.random()*(red[1]-red[0]+1)+red[0]);
+             var g=Math.floor(Math.random()*(green[1]-green[0]+1)+green[0]);
+             var b=Math.floor(Math.random()*(blue[1]-blue[0]+1)+blue[0]);
             
              var c=rr()
-             return "rgb("+r+','+g+','+b+','+c+")";//所有方法的拼接都可以用ES6新特性`其他字符串{$变量名}`替换
+             return "rgba("+r+','+g+','+b+','+c+")";//所有方法的拼接都可以用ES6新特性`其他字符串{$变量名}`替换
          }
         function updateColor(){
+         
           var a=[];
+          //var aa=bg3()
           for(var i=0;i<9;i++){
-            a.push( bg3())
+            var aa=bg3()
+
+            //a.push("hsla("+aa[0]+','+aa[1]+','+aa[2]+','+aa[3]+")")
+           a.push(aa)
           }
-          return a
+          
+         return a
         }
     
     var _window$popmotion = window.popmotion,easing = _window$popmotion.easing,tween = _window$popmotion.tween,styler = _window$popmotion.styler;
 
 setTimeout(function(){
   //window.lastColor=['#fff','#fff','#000000','#000000','#000000','#000000','#fff','#fff','#fff']
+  window.curColor=updateColor()
   window.lastColor=updateColor()
 function ska(){
   
@@ -146,9 +212,17 @@ function ska(){
   // yoyo: 5
 }).start({update:function(v){
  arr.forEach(function(item,i){
-   console.log(v)
-   item.color.setStyle(v[i])
+   
+   //var t="hsla("+v[i][0]+','+v[i][1]+'%,'+v[i][2]+'%,'+v[i][3]+")"
+  //  var c=v[i].split(',')
+  //  c[1]=parseInt(c[1])+'%'
+  //  c[2]=parseInt(c[2])+'%'
+  //  item.color.setStyle(c.join(','))
+  //console.log(v[i])
+  item.color.setStyle(v[i])
+  
  })
+ //arr[0].color.setStyle('white')
 },
 complete:function(){
   window.curColor=window.lastColor
@@ -158,6 +232,10 @@ complete:function(){
 }});
 }
 ska()
+window.ondblclick=function(){
+  console.log(window.lastColor)
+  window.vue.show==true?window.vue.show=false:window.vue.show=true
+}
 //   tween({
 //   from: window.curColor,
 //   to: window.lastColor,
